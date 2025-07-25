@@ -1,0 +1,48 @@
+steps:
+# Step 1: Build the Docker image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA', '.']
+  id: Build
+
+# Step 2: Push the Docker image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA']
+  id: Push
+
+# Step 3 (Optional): Deploy to Cloud Run
+# Uncomment and configure if you are deploying to Cloud Run
+# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#   args:
+#   - 'run'
+#   - 'deploy'
+#   - 'my-app-service' # Name of your Cloud Run service
+#   - '--image'
+#   - '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA'
+#   - '--region'
+#   - '${_CR_REGION}' # e.g., us-central1
+#   - '--platform'
+#   - 'managed'
+#   # - '--allow-unauthenticated' # Uncomment if public access is desired
+#   id: DeployToCloudRun
+
+# Step 3 (Optional): Deploy to GKE
+# Uncomment and configure if you are deploying to GKE
+# - name: 'gcr.io/cloud-builders/kubectl'
+#   args:
+#   - 'set'
+#   - 'image'
+#   - 'deployment/my-app-deployment' # Your GKE deployment name
+#   - 'my-app=IMAGE_NAME' # Replace IMAGE_NAME with your image reference
+#   - '--namespace=default' # Or your specific namespace
+#   env:
+#   - 'CLOUDSDK_COMPUTE_ZONE=YOUR_GKE_CLUSTER_ZONE' # e.g., us-central1-c
+#   - 'CLOUDSDK_CONTAINER_CLUSTER=YOUR_GKE_CLUSTER_NAME' # e.g., my-gke-cluster
+#   id: DeployToGKE
+
+images:
+- '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA'
+
+substitutions:
+  _AR_REGION: 'us-central1' # e.g., us-central1
+  _AR_REPO_NAME: 'my-docker-repo'
+  _CR_REGION: 'us-central1' # e.g., us-central1
