@@ -12,6 +12,7 @@ steps:
 # Step 3 (Optional): Deploy to Cloud Run
 # Uncomment and configure if you are deploying to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+  entrypoint: gcloud
   args:
   - 'run'
   - 'deploy'
