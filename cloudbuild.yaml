@@ -46,3 +46,6 @@ substitutions:
   _AR_REGION: 'us-central1' # e.g., us-central1
   _AR_REPO_NAME: 'my-docker-repo'
   _CR_REGION: 'us-central1' # e.g., us-central1
+  
+options:
+  logging: CLOUD_LOGGING_ONLY
