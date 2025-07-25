@@ -11,19 +11,19 @@ steps:
 
 # Step 3 (Optional): Deploy to Cloud Run
 # Uncomment and configure if you are deploying to Cloud Run
-# - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#   args:
-#   - 'run'
-#   - 'deploy'
-#   - 'my-app-service' # Name of your Cloud Run service
-#   - '--image'
-#   - '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA'
-#   - '--region'
-#   - '${_CR_REGION}' # e.g., us-central1
-#   - '--platform'
-#   - 'managed'
-#   # - '--allow-unauthenticated' # Uncomment if public access is desired
-#   id: DeployToCloudRun
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'my-app-service' # Name of your Cloud Run service
+  - '--image'
+  - '${_AR_REGION}-docker.pkg.dev/$PROJECT_ID/${_AR_REPO_NAME}/my-app:$COMMIT_SHA'
+  - '--region'
+  - '${_CR_REGION}' # e.g., us-central1
+  - '--platform'
+  - 'managed'
+  # - '--allow-unauthenticated' # Uncomment if public access is desired
+  id: DeployToCloudRun
 
 # Step 3 (Optional): Deploy to GKE
 # Uncomment and configure if you are deploying to GKE
